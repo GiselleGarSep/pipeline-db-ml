@@ -5,30 +5,16 @@ import uvicorn
 from src.contexts.api.controllers import HealthCheckController
 from src.contexts.api.controllers import TrainModelController
 
-
-### 🎵 API de Analítica Predictiva y MLOps - Base de Datos Chinook
-
-Esta API expone un modelo de Machine Learning (Random Forest) entrenado de forma directa 
-con datos consolidados desde **Supabase**. Permite estimar las preferencias musicales de un cliente 
-analizando sus variables demográficas y de contacto.
-
-**Desarrollado con:** FastAPI, Docker, PostgreSQL (Supabase) y Scikit-Learn.
-"""
-
 class ApiApp:
     def __init__(self):
-        # 🎨 Personalizamos el título, descripción y metadatos de FastAPI sin alterar las rutas
+        # 🎨 Inyectamos la presentación corporativa en una sola línea segura
         self.app = FastAPI(
             title="🎵 Chinook Music Predictor API",
-            description=description,
+            description="API de Analitica Predictiva y MLOps para la Base de Datos Chinook mediante Supabase.",
             version="1.0.0",
             contact={
                 "name": "Giselle Garcia :)",
                 "email": "0151990@up.edu.mx",
-            },
-            license_info={
-                "name": "Apache 2.0",
-                "url": "https://apache.org",
             }
         )
         
@@ -42,7 +28,6 @@ class ApiApp:
         self.setup_routes()
 
     def setup_routes(self):
-        # 💡 Corregido: Removimos 'tags' ya que add_api_route no lo soporta de esta forma
         self.app.add_api_route(
             "/api/health-check",
             HealthCheckController().execute, 
