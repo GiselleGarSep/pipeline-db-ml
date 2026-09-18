@@ -2,6 +2,7 @@ import os
 import io
 import joblib
 import boto3
+import pandas as pd  # 👈 Aseguramos que pandas esté importado
 from fastapi import HTTPException
 from src.contexts.api.models import PredictorRequest
 from src.TrainModel import train_music_model
@@ -22,15 +23,19 @@ class TrainModelController:
             else:
                 model = joblib.load("models/music_predictor_model.pkl")
                 
-            # Formatear la entrada para el pipeline de Chinook
-            input_data = [[request.tipo_correo, request.pais_origen, request.ciudad_origen]]
+            # 💡 CORRECCIÓN: Convertimos los datos de entrada en un DataFrame con las columnas idénticas al entrenamiento
+            input_df = pd.DataFrame([{
+                "tipo_correo": request.tipo_correo,
+                "pais_origen": request.pais_origen,
+                "ciudad_origen": request.ciudad_origen
+            }])
             
-            # Realizar la predicción del género musical
-            prediction = model.predict(input_data)
+            # Realizar la predicción del género musical pasando el DataFrame
+            prediction = model.predict(input_df)
             
             return {
                 "status": "success",
-                "prediction": prediction[0]
+                "prediction": str(prediction[0])  # Convertimos el resultado a string para el JSON
             }
         except Exception as e:
             raise HTTPException(status_code=500, detail=f"Error al procesar la predicción: {str(e)}")
