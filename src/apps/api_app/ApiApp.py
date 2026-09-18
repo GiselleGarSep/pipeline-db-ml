@@ -7,14 +7,19 @@ from src.contexts.api.controllers import TrainModelController
 
 class ApiApp:
     def __init__(self):
-        # 🎨 Inyectamos la presentación corporativa en una sola línea segura
+        # 🎨 banner 
+        api_description = (
+          "<p align='center'>"
+          "  <img src='vinil_Music.png' alt='Chinook Banner' width='100%' style='border-radius: 8px;'/>"
+        )
+
         self.app = FastAPI(
             title="🎵 Chinook Music Predictor API",
-            description="API de Analitica Predictiva y MLOps para la Base de Datos Chinook mediante Supabase.",
+            description=api_description,
             version="1.0.0",
             contact={
-                "name": "Giselle Garcia :)",
-                "email": "0151990@up.edu.mx",
+                "name": "Soporte de Ingenieria de Datos",
+                "email": "ralejandrobm@gmail.com",
             }
         )
         
