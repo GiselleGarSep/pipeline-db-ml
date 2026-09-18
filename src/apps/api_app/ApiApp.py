@@ -17,13 +17,13 @@ analizando sus variables demográficas y de contacto.
 
 class ApiApp:
     def __init__(self):
-        # 🎨 Personalizamos FastAPI con títulos, descripción, contactos y licencias corporativas
+        # 🎨 Personalizamos el título, descripción y metadatos de FastAPI sin alterar las rutas
         self.app = FastAPI(
             title="🎵 Chinook Music Predictor API",
             description=description,
             version="1.0.0",
             contact={
-                "name": "Giselle Garcia",
+                "name": "Giselle Garcia :)",
                 "email": "0151990@up.edu.mx",
             },
             license_info={
@@ -42,19 +42,17 @@ class ApiApp:
         self.setup_routes()
 
     def setup_routes(self):
-        # 🏷️ El parámetro tags sirve para agrupar visualmente los endpoints en secciones
+        # 💡 Corregido: Removimos 'tags' ya que add_api_route no lo soporta de esta forma
         self.app.add_api_route(
             "/api/health-check",
             HealthCheckController().execute, 
             methods=["GET"],
-            tags=["Infraestructura & Monitoreo"]
         )
         
         self.app.add_api_route(
             "/api/model",
             TrainModelController().execute, 
             methods=["POST"],
-            tags=["Predicciones de Inteligencia Artificial"]
         )
 
     def start(self):
