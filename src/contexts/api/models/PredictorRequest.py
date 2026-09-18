@@ -1,30 +1,15 @@
-from enum import Enum
-from pydantic import BaseModel, validator
-
-
-class SexEnum(str, Enum):
-    M = "M"
-    F = "F"
-
+from pydantic import BaseModel, Field
 
 class PredictorRequest(BaseModel):
-    sex: SexEnum
-    nuevo: int
+    tipo_correo: str = Field(..., description="Dominio del correo, ej: gmail.com")
+    pais_origen: str = Field(..., description="País del cliente, ej: Brazil")
+    ciudad_origen: str = Field(..., description="Ciudad del cliente, ej: São Paulo")
 
-    @validator("sex")
-    def validate_sex(cls, sex):
-        sex_ranges = [SexEnum.F, SexEnum.M]
-        if sex not in sex_ranges:
-            raise ValueError("Invalid sex range")
-        return sex
-    
-    @validator("nuevo")
-    def validate_nuevo(cls, nuevo):
-        try:
-            int(nuevo)
-        except ValueError:
-            raise ValueError("nuevo must be an integer")
-        return nuevo
-    
-
-
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "tipo_correo": "gmail.com",
+                "pais_origen": "Brazil",
+                "ciudad_origen": "São Paulo"
+            }
+        }
