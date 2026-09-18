@@ -10,7 +10,7 @@ class ApiApp:
         # 🎨 banner 
         api_description = (
           "<p align='center'>"
-          "  <img src='vinil_Music.png' alt='Chinook Banner' width='100%' style='border-radius: 8px;'/>"
+          "  <img src='assets/vinil_Music.png' alt='Chinook Banner' width='100%' style='border-radius: 8px;'/>"
         )
 
         self.app = FastAPI(
@@ -18,8 +18,8 @@ class ApiApp:
             description=api_description,
             version="1.0.0",
             contact={
-                "name": "Soporte de Ingenieria de Datos",
-                "email": "ralejandrobm@gmail.com",
+                "name": "Giselle Garcia :)",
+                "email": "0151990@up.edu.mx",
             }
         )
         
