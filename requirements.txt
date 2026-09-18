@@ -9,3 +9,5 @@ pydantic==2.1.1
 scikit-learn==1.6.1
 psycopg2-binary==2.9.10
 anyio==3.7.1
+supabase>=2.0.0
+boto3>=1.28.0
