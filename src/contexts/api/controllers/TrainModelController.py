@@ -1,30 +1,19 @@
-import os
-import joblib
-import numpy as np
-import os
+from fastapi import APIRouter, HTTPException
+from src.TrainModel import train_music_model
 
-from src.contexts.api.models import PredictorRequest
+router = APIRouter()
 
-
-
-class TrainModelController:
-    def execute(self, request: PredictorRequest):
-        print(request)
-        sex=request.sex.value
-        nuevo=request.nuevo
-       
-        lr_model_path = os.getenv("MODELO_ENTRENADO")
-       
-        # Cargar el modelo desde el archivo
-        modelo_cargado = joblib.load(lr_model_path)
-
-        # Crear un nuevo dato para predecir
-        nuevo_dato = np.array([[nuevo]])  # X = 6
-
-        # Hacer la predicción
-        result = modelo_cargado.predict(nuevo_dato)
-        print(f"Predicción para X=6: {result[0][0]}")
-        
-        return {"status": "OK", "result": result[0][0]}
-
-    
+@router.post("/execute_api_model")
+def run_training():
+    try:
+        # Llama a tu función que descarga de Supabase y entrena el modelo
+        accuracy = train_music_model()
+        return {
+            "status": "success",
+            "message": "El modelo para Chinook se entrenó y guardó de manera exitosa.",
+            "metrics": {
+                "accuracy": round(accuracy, 4)
+            }
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error en el entrenamiento del modelo: {str(e)}")
